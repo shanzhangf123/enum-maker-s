@@ -68,6 +68,9 @@ export function generatorEnums({
         label: enumsItem[1],
         value: codeSplitTransfer(enumsItem[0]).toUpperCase(),
         code: enumsItem[0],
+        key: codeSplitTransfer(enumsItem[0])
+        .toUpperCase()
+        .replace(/\s*/g, ''),
       })).filter(enumsItem => isNaN(Number(enumsItem.value)))
       return;
     }
@@ -78,7 +81,7 @@ export function generatorEnums({
       const formatterFn =
         formatter ||
         function (enums) {
-          return { label: enums.label, value: enums.value.toUpperCase() };
+          return { label: enums.label, value: enums.value.toUpperCase(), key: enums.value.toUpperCase().replace(/\s*/g, ''), };
         };
       enumsArray.push({
         name: addEnumTail(enumsKey),
@@ -93,6 +96,7 @@ export function generatorEnums({
         enums: Object.entries(enums[enumsKey]).map((enumsItem) => ({
           label: enumsItem[1],
           value: enumsItem[0].toUpperCase(),
+          key: enumsItem[0].toUpperCase().replace(/\s*/g, ''),
         })).filter(enumsItem => isNaN(Number(enumsItem.value))),
       });
     }
